@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas - My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0e7ff 50%, #fce7f3 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: snowFall linear infinite;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes snowFall {
+            0% {
+                transform: translateY(-10vh) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(80px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(236, 72, 153, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .cards-container {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(236, 72, 153, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .emoji-header {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .card h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .card-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin: 20px 0;
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05));
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary);
+            margin: 25px 0;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--dark);
+            font-style: italic;
+        }
+
+        .hearts {
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            margin: 20px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--secondary), #f472b6);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .skip-btn {
+            background: linear-gradient(135deg, var(--accent), #22d3ee);
+        }
+
+        .gift-box-interactive {
+            width: 120px;
+            height: 120px;
+            margin: 30px auto;
+            background: linear-gradient(135deg, var(--secondary), #f472b6);
+            border-radius: 15px;
+            cursor: pointer;
+            position: relative;
+            animation: giftBounce 2s ease-in-out infinite;
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .gift-box-interactive:hover {
+            transform: scale(1.08);
+        }
+
+        @keyframes giftBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 12px;
+            background: #fbbf24;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+
+        .ribbon-v {
+            position: absolute;
+            width: 12px;
+            height: 100%;
+            background: #fbbf24;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        .bow {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            animation: bowSway 2.5s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes bowSway {
+            0%, 100% { transform: translateX(-50%) rotate(-8deg); }
+            50% { transform: translateX(-50%) rotate(8deg); }
+        }
+
+        .flip-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .flip-card {
+            height: 120px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #ffe7f1, #fce7f3);
+            border: 2px solid var(--secondary);
+            color: var(--dark);
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--secondary), #f472b6);
+            color: white;
+            transform: rotateY(180deg);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+        }
+
+        .page-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(236, 72, 153, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-top: 25px;
+            font-weight: 700;
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        @media (max-width: 600px) {
+            .main-title { font-size: 2.5rem; }
+            .card h2 { font-size: 1.8rem; }
+            .card { padding: 35px 25px; }
+            .flip-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">Merry Christmas</h1>
+            <p class="subtitle">to my Cutiepie 💕</p>
+        </div>
+
+        <div class="cards-container">
+            <!-- Card 1 -->
+            <div class="card page" id="page0">
+                <div class="emoji-header">❄️</div>
+                <h2>For Someone Special</h2>
+                <div class="card-content">
+                    <p style="margin: 20px 0; font-size: 1.1rem;">I don't need a gift, because...</p>
+                </div>
+                <div class="gift-box-interactive" onclick="nextPageWithAnimation()">
+                    <div class="ribbon-h"></div>
+                    <div class="ribbon-v"></div>
+                    <div class="bow">🎀</div>
+                    <span style="position: relative; z-index: 1;">🎁</span>
+                </div>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 20px;">Tap the gift to open</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card page hidden" id="page1">
+                <div class="emoji-header">💕</div>
+                <h2>You Are My Gift</h2>
+                <div class="message-box">
+                    <p>
+                        You are not just a part of my life,<br>
+                        you are the reason behind<br>
+                        so many smiles and little moments.
+                    </p>
+                </div>
+                <div class="card-buttons">
+                    <button onclick="previousPage()">Back</button>
+                    <button class="skip-btn" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card page hidden" id="page2">
+                <div class="emoji-header">✨</div>
+                <h2>Just for you</h2>
+                <div class="card-content">
+                    <p style="margin-bottom: 30px;">I don't need a gift, because...</p>
+                </div>
+                <div class="flip-cards" id="flipCards">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">You</div>
+                            <div class="flip-card-back">❤️</div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">are</div>
+                            <div class="flip-card-back">💕</div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">my</div>
+                            <div class="flip-card-back">💗</div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">cutest</div>
+                            <div class="flip-card-back">🥰</div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">gift</div>
+                            <div class="flip-card-back">🎁</div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">ever</div>
+                            <div class="flip-card-back">✨</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-buttons">
+                    <button onclick="previousPage()">Back</button>
+                    <button class="skip-btn" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card page hidden" id="page3">
+                <div class="emoji-header">💖</div>
+                <h2>My Promise To You</h2>
+                <div class="message-box">
+                    <p>
+                        I may not be perfect, but I promise one thing:<br>
+                        whenever you share a wish, a dream, or even a silly thought,<br>
+                        I'll always try my best to be there for you.
+                    </p>
+                </div>
+                <div class="card-buttons">
+                    <button onclick="previousPage()">Back</button>
+                    <button class="skip-btn" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card page hidden" id="page4">
+                <div class="emoji-header">🌟</div>
+                <h2>This Christmas...</h2>
+                <div class="message-box">
+                    <p>
+                        This Christmas, I just want you to know<br>
+                        how incredibly special you are to me.
+                    </p>
+                </div>
+                <p class="card-content" style="margin-top: 30px;">You are not just a part of my life,<br>
+                you are the reason behind<br>
+                so many smiles and little moments.</p>
+                <div class="card-buttons">
+                    <button onclick="previousPage()">Back</button>
+                    <button class="skip-btn" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="card page hidden" id="page5">
+                <div class="emoji-header">💝</div>
+                <h2>Thank You</h2>
+                <div class="message-box">
+                    <p>
+                        Thank you for being you.<br>
+                        Thank you for loving me.<br>
+                        Thank you for making every single day magical.
+                    </p>
+                </div>
+                <div class="hearts">❤️ 💗 ❤️</div>
+                <div class="signature">Merry Christmas</div>
+                <p class="card-content">Always yours 💕</p>
+                <div class="card-buttons">
+                    <button onclick="previousPage()">Back</button>
+                    <button class="skip-btn" onclick="celebrate()">Celebrate! 🎉</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-dots" id="pageDots"></div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+
+        function createSnow() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            for (let i = 0; i < 40; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                const size = Math.random() * 4 + 3;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 5 + 10;
+                const left = Math.random() * 100;
+
+                snowflake.style.width = size + 'px';
+                snowflake.style.height = size + 'px';
+                snowflake.style.left = left + '%';
+                snowflake.style.animationDuration = duration + 's';
+                snowflake.style.animationDelay = delay + 's';
+
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        function createPageDots() {
+            const dotsContainer = document.getElementById('pageDots');
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToPage(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updatePageDisplay() {
+            pages.forEach((page, index) => {
+                page.classList.toggle('hidden', index !== currentPage);
+            });
+
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentPage);
+            });
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                updatePageDisplay();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePageDisplay();
+            }
+        }
+
+        function goToPage(index) {
+            currentPage = index;
+            updatePageDisplay();
+        }
+
+        function nextPageWithAnimation() {
+            createConfetti();
+            setTimeout(() => nextPage(), 300);
+        }
+
+        function celebrate() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(createConfetti, i * 400);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#ec4899', '#f472b6', '#06b6d4', '#8b5cf6', '#fbbf24'];
+            const confettiCount = 40;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.innerHTML = ['✨', '💕', '🎁', '💖', '🌟'][Math.floor(Math.random() * 5)];
+                confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.fontSize = Math.random() * 15 + 10 + 'px';
+
+                const duration = Math.random() * 2 + 2;
+                const xMove = Math.random() * 200 - 100;
+
+                confetti.style.animation = `confettiFall ${duration}s ease-out forwards`;
+                confetti.style.setProperty('--x-move', xMove + 'px');
+
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), duration * 1000);
+            }
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                0% {
+                    transform: translateY(0) translateX(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) translateX(var(--x-move)) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        createSnow();
+        createPageDots();
+    </script>
+</body>
+</html>
