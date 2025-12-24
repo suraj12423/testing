@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 For You 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #e0f4f9 0%, #c5e8f5 50%, #e0f4f9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ULTRA SLOW GENTLE SNOWFALL */
+        .snowflake {
+            position: fixed;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes fall {
+            from { 
+                transform: translateY(-100vh) translateX(0) rotate(0deg); 
+                opacity: 0.7;
+            }
+            to { 
+                transform: translateY(100vh) translateX(30px) rotate(360deg); 
+                opacity: 0.2;
+            }
+        }
+
+        .glow-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 40%, rgba(200, 230, 255, 0.2) 0%, transparent 50%);
+            animation: glow-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
+        }
+
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scene {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            animation: scene-enter 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .scene.active {
+            display: flex;
+        }
+
+        @keyframes scene-enter {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95) translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* === PREMIUM 3D GIFT BOX === */
+        .premium-gift {
+            width: 160px;
+            height: 160px;
+            margin: 30px auto;
+            cursor: pointer;
+            position: relative;
+            perspective: 1200px;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+        }
+
+        .gift-3d {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: gift-idle 3s ease-in-out infinite;
+        }
+
+        @keyframes gift-idle {
+            0%, 100% { transform: rotateY(0deg) rotateX(5deg); }
+            50% { transform: rotateY(5deg) rotateX(8deg); }
+        }
+
+        .premium-gift:hover .gift-3d {
+            transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+        }
+
+        .premium-gift.opening .gift-3d {
+            animation: none;
+        }
+
+        /* BOX FACES */
+        .box-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            font-size: 80px;
+            font-weight: bold;
+            opacity: 0.95;
+        }
+
+        .box-front {
+            background: linear-gradient(135deg, #d946a6 0%, #c5189e 100%);
+            transform: translateZ(80px);
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.2), 0 15px 30px rgba(217, 70, 166, 0.3);
+        }
+
+        .box-back {
+            background: linear-gradient(135deg, #b91680 0%, #a0106a 100%);
+            transform: rotateY(180deg) translateZ(80px);
+            box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .box-right {
+            background: linear-gradient(135deg, #e968b8 0%, #d946a6 100%);
+            transform: rotateY(90deg) translateZ(80px);
+            box-shadow: inset -5px 0 15px rgba(0, 0, 0, 0.2), 5px 15px 30px rgba(217, 70, 166, 0.25);
+        }
+
+        .box-left {
+            background: linear-gradient(135deg, #c5189e 0%, #a0106a 100%);
+            transform: rotateY(-90deg) translateZ(80px);
+            box-shadow: inset 5px 0 15px rgba(0, 0, 0, 0.2), -5px 15px 30px rgba(165, 55, 109, 0.25);
+        }
+
+        .box-top {
+            background: linear-gradient(135deg, #e968b8 0%, #d946a6 100%);
+            transform: rotateX(90deg) translateZ(80px);
+            box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(217, 70, 166, 0.3);
+        }
+
+        .box-bottom {
+            background: linear-gradient(135deg, #a0106a 0%, #7a0849 100%);
+            transform: rotateX(-90deg) translateZ(80px);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* PREMIUM RIBBONS */
+        .ribbon-horizontal {
+            position: absolute;
+            width: 100%;
+            height: 18px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%) translateZ(81px);
+            background: linear-gradient(90deg, 
+                #ffd700 0%, 
+                #ffed4e 20%,
+                #ffd700 40%,
+                #ffe500 60%,
+                #ffed4e 80%,
+                #ffd700 100%);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: ribbon-shimmer 2s ease-in-out infinite;
+        }
+
+        .ribbon-vertical {
+            position: absolute;
+            width: 18px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%) translateZ(81px);
+            background: linear-gradient(180deg, 
+                #ffd700 0%, 
+                #ffed4e 20%,
+                #ffd700 40%,
+                #ffe500 60%,
+                #ffed4e 80%,
+                #ffd700 100%);
+            box-shadow: 4px 0 12px rgba(255, 215, 0, 0.4), inset -2px 0 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: ribbon-shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes ribbon-shimmer {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 215, 0, 0.8)); }
+        }
+
+        /* PREMIUM BOW */
+        .bow-top {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(82px);
+            font-size: 40px;
+            animation: bow-bounce 2s ease-in-out infinite, bow-spin 3s linear infinite;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes bow-bounce {
+            0%, 100% { transform: translateX(-50%) translateZ(82px) translateY(0); }
+            50% { transform: translateX(-50%) translateZ(82px) translateY(-8px); }
+        }
+
+        @keyframes bow-spin {
+            0%, 100% { filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.3)); }
+            50% { filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.6)); }
+        }
+
+        /* LID ANIMATION - SLOW */
+        .gift-lid {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(82px);
+            width: 85%;
+            height: 50px;
+            background: linear-gradient(135deg, #e968b8 0%, #d946a6 100%);
+            border-radius: 8px 8px 0 0;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(217, 70, 166, 0.25), inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+            transform-origin: bottom center;
+            animation: lid-float 2.5s ease-in-out infinite;
+        }
+
+        @keyframes lid-float {
+            0%, 100% { transform: translateX(-50%) translateZ(82px) rotateX(0deg) translateY(0); }
+            50% { transform: translateX(-50%) translateZ(82px) rotateX(-5deg) translateY(-5px); }
+        }
+
+        .premium-gift.opening .gift-lid {
+            animation: lid-open 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
+        }
+
+        @keyframes lid-open {
+            0% { 
+                transform: translateX(-50%) translateZ(82px) rotateX(0deg) translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(-50%) translateZ(82px) rotateX(-120deg) translateY(-40px);
+                opacity: 0.9;
+            }
+        }
+
+        /* BOX OPENING - SLOW SMOOTH */
+        .premium-gift.opening .box-front {
+            animation: box-burst 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .premium-gift.opening .box-right {
+            animation: box-burst-right 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s forwards;
+        }
+
+        .premium-gift.opening .box-left {
+            animation: box-burst-left 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s forwards;
+        }
+
+        @keyframes box-burst {
+            0% { transform: translateZ(80px); opacity: 1; }
+            100% { transform: translateZ(80px) rotateY(180deg) translateZ(150px); opacity: 0; }
+        }
+
+        @keyframes box-burst-right {
+            0% { transform: rotateY(90deg) translateZ(80px); opacity: 1; }
+            100% { transform: rotateY(90deg) translateZ(80px) translateX(180px); opacity: 0; }
+        }
+
+        @keyframes box-burst-left {
+            0% { transform: rotateY(-90deg) translateZ(80px); opacity: 1; }
+            100% { transform: rotateY(-90deg) translateZ(80px) translateX(-180px); opacity: 0; }
+        }
+
+        .page1-card, .page2-card, .page3-card, .page4-card, .page5-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(173, 216, 230, 0.3);
+            border-radius: 25px;
+            padding: 35px 28px;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.08),
+                0 0 40px rgba(173, 216, 230, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .intro-emoji, .reveal-emoji, .letter-emoji {
+            animation: float-gentle 3s ease-in-out infinite;
+        }
+
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .intro-title, .letter-signature {
+            font-family: 'Great Vibes', cursive;
+            color: #4a90a4;
+            font-weight: 400;
+        }
+
+        .intro-title { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: 1px; }
+        .letter-signature { font-size: 1.8rem; margin-top: 25px; }
+
+        .intro-subtitle, .gift-title, .cards-title, .letter-title {
+            font-family: 'Playfair Display', serif;
+            color: #5a8fa8;
+            font-weight: 400;
+        }
+
+        .intro-subtitle { font-size: 1.1rem; margin-bottom: 20px; }
+        .gift-title, .cards-title, .letter-title { font-size: 1.3rem; margin-bottom: 8px; }
+
+        .intro-text, .gift-subtitle, .cards-subtitle, .letter-text, .letter-footer {
+            font-size: 0.9rem;
+            color: #5a5a5a;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .gift-subtitle, .cards-subtitle, .letter-footer {
+            color: #7a9fb8;
+            margin-bottom: 20px;
+        }
+
+        .gift-text {
+            font-size: 0.85rem;
+            color: #7a9fb8;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+
+        /* CARDS GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .flip-card {
+            height: 80px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(173, 216, 230, 0.15);
+            border: 1px solid rgba(173, 216, 230, 0.25);
+        }
+
+        .flip-front {
+            background: linear-gradient(135deg, rgba(224, 244, 249, 0.95), rgba(197, 232, 245, 0.95));
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #4a90a4;
+            font-weight: 500;
+        }
+
+        .flip-back {
+            background: linear-gradient(135deg, rgba(197, 232, 245, 0.95), rgba(173, 216, 230, 0.95));
+            transform: rotateY(180deg);
+            font-size: 1.6rem;
+        }
+
+        /* REVEAL TEXT */
+        .reveal-emoji { font-size: 2rem; margin-bottom: 15px; }
+
+        .reveal-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #5a8fa8;
+            margin: 18px 0;
+            font-weight: 400;
+            line-height: 1.4;
+            animation: text-reveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes text-reveal {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal-hearts {
+            font-size: 1.4rem;
+            margin: 15px 0;
+            letter-spacing: 10px;
+            animation: hearts-beat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes hearts-beat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.08); }
+            50% { transform: scale(1.15); }
+            75% { transform: scale(1.08); }
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            margin: 0 5px;
+            background: linear-gradient(135deg, #4a90a4, #3a7a94);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 6px 18px rgba(74, 144, 164, 0.25);
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(74, 144, 164, 0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.7);
+            color: #4a90a4;
+            border: 1.5px solid rgba(74, 144, 164, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            font-size: 1.5rem;
+        }
+
+        @keyframes confetti-fall {
+            to { 
+                transform: translateY(100vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page1-card, .page2-card, .page3-card, .page4-card, .page5-card {
+                padding: 30px 20px;
+                max-width: 95%;
+            }
+            .premium-gift {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="snow-container"></div>
+    <div class="glow-bg"></div>
+
+    <div class="card-container">
+
+        <!-- PAGE 1 -->
+        <div class="scene active">
+            <div class="page1-card">
+                <div class="intro-emoji">✨</div>
+                <h1 class="intro-title">For You</h1>
+                <p class="intro-subtitle">Something Special is Waiting...</p>
+                <p class="intro-text">
+                    This Christmas, I want to share something precious with you.
+                </p>
+                <button class="btn" onclick="nextScene()">Continue →</button>
+            </div>
+        </div>
+
+        <!-- PAGE 2: PREMIUM GIFT -->
+        <div class="scene">
+            <div class="page2-card">
+                <h2 class="gift-title">For Someone Special</h2>
+                <p class="gift-subtitle">I don't need a gift, because...</p>
+
+                <!-- 3D PREMIUM GIFT BOX -->
+                <div class="premium-gift" id="gift" onclick="openGift()">
+                    <div class="gift-3d">
+                        <div class="box-face box-front"></div>
+                        <div class="box-face box-back"></div>
+                        <div class="box-face box-right"></div>
+                        <div class="box-face box-left"></div>
+                        <div class="box-face box-top"></div>
+                        <div class="box-face box-bottom"></div>
+
+                        <div class="ribbon-horizontal"></div>
+                        <div class="ribbon-vertical"></div>
+                        <div class="bow-top">🎀</div>
+                        <div class="gift-lid"></div>
+                    </div>
+                </div>
+
+                <p class="gift-text">Tap the gift to open ✨</p>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="prevScene()">← Back</button>
+                    <button class="btn" onclick="openGift()">Open</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="scene">
+            <div class="page3-card">
+                <h2 class="cards-title">Just For You</h2>
+                <p class="cards-subtitle">I don't need a gift because...</p>
+
+                <div class="cards-grid">
+                    <div class="flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">You</div>
+                            <div class="flip-back">❤️</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">are</div>
+                            <div class="flip-back">💕</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">my</div>
+                            <div class="flip-back">💖</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">cutest</div>
+                            <div class="flip-back">🥰</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">gift</div>
+                            <div class="flip-back">🎁</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: #7a9fb8; margin-top: 15px;">Tap each card ✨</p>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="prevScene()">← Back</button>
+                    <button class="btn" onclick="nextScene()">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4 -->
+        <div class="scene">
+            <div class="page4-card">
+                <div class="reveal-emoji">💎</div>
+                <div class="reveal-text">You are my cutest gift ever</div>
+                <div class="reveal-hearts">❤️ 💕 ❤️</div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="prevScene()">← Back</button>
+                    <button class="btn" onclick="nextScene()">Read Letter →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5 -->
+        <div class="scene">
+            <div class="page5-card">
+                <div class="letter-emoji">🎄</div>
+                <h2 class="letter-title">Merry Christmas</h2>
+
+                <p class="letter-text">
+                    This Christmas, I just want you to know how special you are to me.
+                </p>
+
+                <p class="letter-text">
+                    You are the reason behind my smiles and calm moments.
+                </p>
+
+                <p class="letter-text">
+                    I may not be perfect, but I promise to always try to be there for you, meri madam ji.
+                </p>
+
+                <p class="letter-signature">
+                    With All My Love
+                </p>
+                <p class="letter-footer">Forever Yours</p>
+                <div style="font-size: 1.2rem; letter-spacing: 8px;">❤️ 🎄 💕</div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="prevScene()">← Back</button>
+                    <button class="btn" onclick="celebrate()">Celebrate! 🎉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        const totalScenes = 5;
+
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            const flakes = ['❄️', '❅', '❆', '✨'];
+
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                flake.style.animationDelay = Math.random() * 8 + 's';
+                flake.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+                flake.style.opacity = Math.random() * 0.5 + 0.4;
+                container.appendChild(flake);
+            }
+        }
+
+        function updateScene() {
+            document.querySelectorAll('.scene').forEach((scene, i) => {
+                scene.classList.toggle('active', i === currentScene);
+            });
+        }
+
+        function nextScene() {
+            if (currentScene < totalScenes - 1) {
+                currentScene++;
+                updateScene();
+            }
+        }
+
+        function prevScene() {
+            if (currentScene > 0) {
+                currentScene--;
+                updateScene();
+            }
+        }
+
+        function openGift() {
+            const gift = document.getElementById('gift');
+            gift.classList.add('opening');
+            celebrate();
+            setTimeout(() => {
+                gift.classList.remove('opening');
+                nextScene();
+            }, 1200);
+        }
+
+        function celebrate() {
+            const emojis = ['❤️', '💕', '✨', '🎁', '💖', '🌟', '💐', '🎀'];
+
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 40 + '%';
+                confetti.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
+                confetti.style.animation = `confetti-fall ${Math.random() * 2.5 + 2}s ease-in forwards`;
+
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4500);
+            }
+        }
+
+        createSnowflakes();
+    </script>
+</body>
+</html>
